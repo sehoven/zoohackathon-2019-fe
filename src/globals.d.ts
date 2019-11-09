@@ -1,0 +1,15 @@
+declare interface location {
+    lat: number,
+    long: number,
+    radius: number
+}
+
+declare interface dateRange {
+    startDate: number,
+    endDate: number
+}
+
+declare interface event {
+    location: location,
+    dateRange: dateRange
+}
