@@ -1,24 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Confirmation from './pages/Confirmation/Confirmation';
+
+const exampleEvent: event = {
+  location: {
+    long: -16.400251,
+    lat: 19.942287,
+    radius: 1000
+  },
+  dateRange: {
+    startDate: 1572643422,
+    endDate: 1574285022
+  }
+};
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Confirmation event={exampleEvent}/>
     </div>
   );
 }
