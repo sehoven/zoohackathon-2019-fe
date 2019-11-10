@@ -23,7 +23,7 @@ export const getEvents = async (activity: activity) => {
 
 export const getMyEvents = async () => {
    const data = {
-      createdBy: "5dc7bb1fc6a1a004d056dfe6"
+      createdBy: "5dc8311669988e0c35f8cdb2"
    };
    return await axios.get(`${BASE_URL}/myEvents`, { params: data, ...getConfig()});
 }
