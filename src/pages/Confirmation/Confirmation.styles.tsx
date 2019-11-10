@@ -1,14 +1,6 @@
 import styled from 'styled-components';
 
-export const ConfirmationDiv = styled.div`
-   padding: 10px;
-   max-width: 500px;
-   margin: 0 auto;
-`;
-
-export const Title = styled.div`
-   margin-bottom: 20px;
-`;
+export const ConfirmationDiv = styled.div``;
 
 export const LabelValue = styled.div`   
    margin-bottom: 10px;
@@ -41,18 +33,6 @@ export const Contacts = styled.div`
 
    @media (min-width: 520px) {
       margin-bottom: 20px;
-   }
-`;
-
-export const ConfirmBtn = styled.div`
-   position: fixed;
-   bottom: 10px;
-   width: calc(100% - 20px);
-
-   @media (min-width: 520px) {
-      position: static;
-      float: right;
-      width: 100px;
    }
 `;
 
