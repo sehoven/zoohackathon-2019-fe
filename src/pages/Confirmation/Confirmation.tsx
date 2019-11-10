@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import {
    Typography, Button, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails
 } from '@material-ui/core';
@@ -16,7 +17,7 @@ export interface Contacts {
    email: string
 };
 
-const Confirmation = (props: ConfirmationProps) => {
+const Confirmation = (props: ConfirmationProps & RouteComponentProps) => {
    const [contacts, setContacts] = useState(Array<Contacts>());
 
    useEffect(() => {
@@ -24,19 +25,19 @@ const Confirmation = (props: ConfirmationProps) => {
       setContacts([
          {
             activityId: 12345,
-            email: "12345@hidden.com"
+            email: "12345@ngounderground.com"
          },
          {
-            activityId: 12345,
-            email: "12345@hidden.com"
+            activityId: 62343,
+            email: "62343@ngounderground.com"
          },
          {
-            activityId: 12345,
-            email: "12345@hidden.com"
+            activityId: 47253,
+            email: "47253@ngounderground.com"
          },
          {
-            activityId: 12345,
-            email: "12345@hidden.com"
+            activityId: 74573,
+            email: "74573@ngounderground.com"
          }
       ]);
    }, []);
@@ -69,10 +70,16 @@ const Confirmation = (props: ConfirmationProps) => {
                </ExpansionPanel>
             </Contacts>
          : null}
-         <BackBtn><Button fullWidth color="default" variant="text" size="large">Back</Button></BackBtn>
-         <BottomBtn><Button fullWidth color="primary" variant="contained" size="large">Confirm</Button></BottomBtn>
+         <BackBtn>
+            <Button fullWidth color="default" variant="text" size="large">Back</Button>
+         </BackBtn>
+         <BottomBtn>
+            <Button fullWidth color="primary" variant="contained" size="large" onClick={() => {props.history.push('/celebration')}}>
+               Confirm
+            </Button>
+         </BottomBtn>
       </ConfirmationDiv>
    );
 }
 
-export default Confirmation;
+export default withRouter(Confirmation);

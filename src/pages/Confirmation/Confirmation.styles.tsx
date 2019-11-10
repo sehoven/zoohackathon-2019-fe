@@ -8,7 +8,7 @@ export const LabelValue = styled.div`
    label {
       font-weight: bold;
       display: inline-block;
-      width: 110px;
+      width: 130px;
    }
 
    p {

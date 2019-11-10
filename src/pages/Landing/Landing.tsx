@@ -57,8 +57,8 @@ const Landing = (props: LandingProps) => {
             <Typography variant="body1">Here are your activities</Typography>
           </Message>
           <Activities>
-            {activities.map(activity => {
-              return <Activity><ActivityCard activity={activity}/></Activity>
+            {activities.map((activity, idx) => {
+              return <Activity key={idx}><ActivityCard activity={activity}/></Activity>
             })}
           </Activities>
         </>
