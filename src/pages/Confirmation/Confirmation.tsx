@@ -4,7 +4,8 @@ import {
    ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { ConfirmationDiv, Title, LabelValue, Message, Contacts, BackBtn, ConfirmBtn, Event } from './Confirmation.styles';
+import { ConfirmationDiv, LabelValue, Message, Contacts, BackBtn, Event } from './Confirmation.styles';
+import { Title, BottomBtn } from '../common.styles';
 
 export interface ConfirmationProps {
    event: event
@@ -46,7 +47,7 @@ const Confirmation = (props: ConfirmationProps) => {
    return (
       <ConfirmationDiv>
          <Title>
-            <Typography variant="h4">Let's confirm your flag registration.</Typography>
+            <Typography variant="h4">Let's confirm your event registration.</Typography>
          </Title>
          <Event>
             <Card>
@@ -92,7 +93,7 @@ const Confirmation = (props: ConfirmationProps) => {
             </Contacts>
          : null}
          <BackBtn><Button fullWidth color="default" variant="text" size="large">Back</Button></BackBtn>
-         <ConfirmBtn><Button fullWidth color="primary" variant="contained" size="large">Confirm</Button></ConfirmBtn>
+         <BottomBtn><Button fullWidth color="primary" variant="contained" size="large">Confirm</Button></BottomBtn>
       </ConfirmationDiv>
    );
 }

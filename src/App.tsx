@@ -1,5 +1,7 @@
 import React from 'react';
-import Confirmation from './pages/Confirmation/Confirmation';
+// import Confirmation from './pages/Confirmation/Confirmation';
+import Celebration from './pages/Celebration/Celebration';
+import { AppDiv } from './App.styles';
 
 const exampleEvent: event = {
   location: {
@@ -15,9 +17,9 @@ const exampleEvent: event = {
 
 function App() {
   return (
-    <div className="App">
-      <Confirmation event={exampleEvent}/>
-    </div>
+    <AppDiv>
+      <Celebration event={exampleEvent}/>
+    </AppDiv>
   );
 }
 
