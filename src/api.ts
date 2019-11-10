@@ -5,7 +5,7 @@ const BASE_URL = 'http://localhost:3001';
 const getConfig = () => {
    return {
       headers: {
-         Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGM3YmIxZmM2YTFhMDA0ZDA1NmRmZTYiLCJpYXQiOjE1NzMzNzA2NTV9.tSLYNJTnjF4Pdw4m7_IRfUHhoxjPEYCKMqm_VYTOCYI'
+         Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGM4MzExNjY5OTg4ZTBjMzVmOGNkYjIiLCJpYXQiOjE1NzM0MDA4NTUsImV4cCI6MTU3MzU3MzY1NX0._cuUY-JEG4nf5WbnOv4BO_QoIkK-mj-sboa6kb4SJbo'
        }
    }
 }
