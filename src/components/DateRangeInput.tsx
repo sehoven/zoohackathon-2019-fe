@@ -3,7 +3,6 @@ import React from 'react';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
-// TODO: type definitions
 const DateRangeInput = () => {
     const [selectedStartDate, setSelectedStartDate] = React.useState<Date | null>(new Date());
     const [selectedEndDate, setSelectedEndDate] = React.useState<Date | null>(new Date());

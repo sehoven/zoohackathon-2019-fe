@@ -4,11 +4,12 @@ import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng,
 } from 'react-places-autocomplete';
-import { InputAdornment, IconButton, CircularProgress, FormControl, FormHelperText, InputLabel, Input, ListItem, List, ListItemText } from '@material-ui/core';
+import { Typography, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, InputAdornment, IconButton, CircularProgress, FormControl, FormHelperText, InputLabel, Input, ListItem, List, ListItemText } from '@material-ui/core';
 import MyLocationIcon from '@material-ui/icons/MyLocation';
 import { getAddressFromGeocode, getCurrentPosition } from '../utils/locationUtils';
 import GoogleMap from 'google-map-react';
 import Marker from '../components/Marker';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const AutocompleteSection = styled.div`
     display: flex;
@@ -37,6 +38,8 @@ const LocationInput = () => {
     const [radius, setRadius] = useState<string|number>('');
     const [mapRef, setMapRef] = useState();
     const [circle, setCircle] = useState();
+    const [expanded, setExpanded] = useState(false);
+    const [mapLoaded, setMapLoaded] = useState(false);
 
     useEffect(() => {
         getCurrentPosition()
@@ -48,31 +51,40 @@ const LocationInput = () => {
             lat: coords.lat,
             lng: coords.long
         }
-        if (circle) {
-            circle.setCenter(convertedCoords);
-        } else {
-            setCircle(new window.google.maps.Circle({
-                strokeColor: '#FF0000',
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: '#FF0000',
-                fillOpacity: 0.3,
-                map: mapRef.map,
-                center: convertedCoords,
-                radius: +radius * 1000,
-            }));
+        if (mapRef && mapRef.map) {
+            if (circle) {
+                circle.setCenter(convertedCoords);
+            } else {
+                setCircle(new window.google.maps.Circle({
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: '#FF0000',
+                    fillOpacity: 0.3,
+                    map: mapRef.map,
+                    center: convertedCoords,
+                    radius: +radius * 1000,
+                }));
+            }
         }
 
         setLatLong(coords);
         setMarkerLocation(coords);
         setMapCenter(coords);
     }
+    
+    const handleExpandChange = (event: object, expanded: boolean) => {
+        setExpanded(expanded);
+        if (!mapLoaded) {
+            setMapLoaded(true);
+        }
+    }
 
     const handleRadiusChange = (e: any) => {
         if (e.target.value) {
             const newRadius = parseInt(e.target.value);
             setRadius(newRadius);
-            if (markerLocation && markerLocation.lat && markerLocation.long) {
+            if (markerLocation && markerLocation.lat && markerLocation.long && mapRef && mapRef.map) {
                 if (!circle) {
                     setCircle(new window.google.maps.Circle({
                         strokeColor: '#FF0000',
@@ -175,26 +187,51 @@ const LocationInput = () => {
                 )}
             </PlacesAutocomplete>
 
-            <MapContainer>
-                <GoogleMap
-                    bootstrapURLKeys={{ key: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&libraries=places`, v: '3.31' }}
-                    center={{ lat: mapCenter.lat, lng: mapCenter.long }}
-                    zoom={9}
-                    onClick={onMapClick}
-                    onGoogleApiLoaded={({map, maps}) => setMapRef({ map, maps })}
-                    options={{zoomControl: false}}
+            <ExpansionPanel expanded={expanded} onChange={handleExpandChange}>
+                <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
                     >
-                        {
-                            markerLocation && markerLocation.lat && markerLocation.long && 
-                            <Marker
-                                lat={markerLocation.lat}
-                                lng={markerLocation.long}
-                                text="My Marker"
-                            />
-                        }
-                        
-                    </GoogleMap>
-            </MapContainer>
+                    <Typography>Show Map</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                    {mapLoaded && <MapContainer>
+                        <GoogleMap
+                            bootstrapURLKeys={{ key: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&libraries=places`, v: '3.31' }}
+                            center={{ lat: mapCenter.lat, lng: mapCenter.long }}
+                            zoom={9}
+                            onClick={onMapClick}
+                            onGoogleApiLoaded={({map, maps}) => {
+                                setMapRef({ map, maps });
+                                if (radius && markerLocation && markerLocation.lat && markerLocation.long) {
+                                    setCircle(new window.google.maps.Circle({
+                                        strokeColor: '#FF0000',
+                                        strokeOpacity: 0.8,
+                                        strokeWeight: 2,
+                                        fillColor: '#FF0000',
+                                        fillOpacity: 0.3,
+                                        map,
+                                        center: { lat: mapCenter.lat, lng: mapCenter.long },
+                                        radius: +radius * 1000,
+                                    }));
+                                }
+                            }}
+                            options={{zoomControl: false}}
+                            >
+                                {
+                                    markerLocation && markerLocation.lat && markerLocation.long && 
+                                    <Marker
+                                        lat={markerLocation.lat}
+                                        lng={markerLocation.long}
+                                        text="My Marker"
+                                    />
+                                }
+                                
+                            </GoogleMap>
+                        </MapContainer> }
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
 
             <FormControl fullWidth>
                 <InputLabel htmlFor="radius-input">Radius</InputLabel>
