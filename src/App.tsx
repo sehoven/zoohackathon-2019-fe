@@ -25,7 +25,7 @@ const exampleActivity: activity = {
 function App() {
   return (
     <Router>
-      <Logo onClick={() => {window.location.href = '/'}}>NGO Underground</Logo>
+      <Logo onClick={() => {window.location.href = '/'}}>NGO Hub</Logo>
       <AppDiv>
         <Switch>
           <Route path='/confirmation/:lat/:long/:radius/:start/:end'><Confirmation /></Route>
