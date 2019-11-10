@@ -14,7 +14,7 @@ const ActivityCard = (props: ActivityCardProps) => {
    return (
       <ActivityCardDiv>
          <Card>
-            <CardHeader title="Activity Details" />
+            <CardHeader title="Operation Details" />
             <CardContent>
                <LabelValue>
                   <label>Latitude</label>

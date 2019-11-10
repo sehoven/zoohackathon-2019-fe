@@ -37,7 +37,7 @@ const Landing = (props: LandingProps & RouteComponentProps) => {
       {activities.length ? 
         <>
           <Message>
-            <Typography variant="body1">Here are your activities</Typography>
+            <Typography variant="body1">Here are your operations:</Typography>
           </Message>
           <Activities>
             {activities.map((activity, idx) => {
@@ -45,7 +45,7 @@ const Landing = (props: LandingProps & RouteComponentProps) => {
             })}
           </Activities>
         </>
-      : <Message><Typography variant="body1">You currently do not have any scheduled activities</Typography></Message>
+      : <Message><Typography variant="body1">You currently do not have any scheduled operations.</Typography></Message>
       }
       <BottomBtn width={180}>
           <Button
@@ -55,7 +55,7 @@ const Landing = (props: LandingProps & RouteComponentProps) => {
             size="large"
             onClick={() => {props.history.push('/search')}}
           >
-            Create Activity
+            Create Operation
          </Button>
         </BottomBtn>
     </LandingDiv>

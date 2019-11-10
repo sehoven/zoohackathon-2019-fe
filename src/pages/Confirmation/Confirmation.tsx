@@ -52,15 +52,15 @@ const Confirmation = (props: ConfirmationProps & RouteComponentProps) => {
    return (
       <ConfirmationDiv>
          <Title>
-            <Typography variant="h4">Let's confirm your activity registration</Typography>
+            <Typography variant="h4">Let's confirm your operation registration</Typography>
          </Title>
          <Activity>
             <ActivityCard activity={activity} />
          </Activity>
          <Message>
             {contacts.length ? 
-               <><Typography variant="subtitle2">There are activity that are occuring at the same location and time as yours.</Typography><Typography variant="body2">You may want to contact the organizer(s) to make sure your activity won't intrude on each other.</Typography></> 
-               : <><Typography variant="subtitle2">There are no overlapping activity with your activity!</Typography><Typography variant="body2">You won't have to worry about other organizations interferring with your activity.</Typography></>}
+               <><Typography variant="subtitle2">There are operations that are occurring at the same location and time as yours.</Typography><Typography variant="body2">You may want to contact the organizers to make sure your operations won't intrude on each other.</Typography></> 
+               : <><Typography variant="subtitle2">No overlapping operations found.</Typography><Typography variant="body2">You won't have to worry about other organizations interferring with your operation.</Typography></>}
          </Message>
          {contacts.length > 0 ?
             <Contacts>
@@ -69,7 +69,7 @@ const Confirmation = (props: ConfirmationProps & RouteComponentProps) => {
                   {contacts.map((contact) =>
                      <ExpansionPanelDetails key={contact.activityId}>
                         <LabelValue>
-                           <label>Activity {contact.activityId}</label>
+                           <label>Operation {contact.activityId}</label>
                            <p>{contact.email}</p>
                         </LabelValue>
                      </ExpansionPanelDetails>

@@ -24,7 +24,7 @@ const Celebration = (props: CelebrationProps & RouteComponentProps) => {
    return (
       <CelebrationDiv>
          <Title>
-            <Typography variant="h4">Your activity has been successfully registered!</Typography>
+            <Typography variant="h4">Your operation has been successfully registered</Typography>
          </Title>
          <CelebrationMessage>
             <Switch
@@ -34,7 +34,7 @@ const Celebration = (props: CelebrationProps & RouteComponentProps) => {
                color="primary"
                inputProps={{ 'aria-label': 'primary checkbox' }}
             />
-            <Typography variant="subtitle1">Receive alerts when a new activity is registered that overlaps with your activity?</Typography>
+            <Typography variant="subtitle1">Receive alerts when a new operation is registered that overlaps with your operation?</Typography>
          </CelebrationMessage>
          
          <BottomBtn width={160}>
