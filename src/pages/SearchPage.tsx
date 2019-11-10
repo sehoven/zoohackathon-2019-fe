@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import DateRangeInput from '../components/DateRangeInput';
@@ -12,10 +12,24 @@ const SearchPageContainer = styled.div`
 `;
 
 const SearchPage = (props: RouteComponentProps) => {
+  const [long, setLong] = useState(0);
+  const [lat, setLat] = useState(0);
+  const [radius, setRadius] = useState(0);
+
+  const [start, setStart] = useState(new Date().getTime()/1000);
+  const [end, setEnd] = useState(new Date().getTime()/1000);
+
   return (
     <SearchPageContainer>
-      <LocationInput />
-      <DateRangeInput />
+      <LocationInput 
+        setLong={setLong}
+        setLat={setLat}
+        setRadius={setRadius}
+      />
+      <DateRangeInput
+        setStart={setStart}
+        setEnd={setEnd}
+      />
       <TopicInput />
       <BottomBtn>
         <Button
@@ -23,7 +37,9 @@ const SearchPage = (props: RouteComponentProps) => {
           color="primary"
           variant="contained"
           size="large"
-          onClick={() => {props.history.push('/confirmation')}}
+          onClick={() => {
+            props.history.push(`/confirmation/${lat}/${long}/${radius}/${start}/${end}`)
+          }}
         >
           Continue
         </Button>

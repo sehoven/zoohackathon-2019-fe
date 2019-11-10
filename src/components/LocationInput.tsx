@@ -29,7 +29,13 @@ declare interface mapClick {
     event: any
 }
 
-const LocationInput = () => {
+export interface LocationInputProps {
+    setLat: any;
+    setLong: any;
+    setRadius: any;
+}
+
+const LocationInput = (props: LocationInputProps) => {
     const [location, setLocation] = useState('');
     const [latLong, setLatLong] = useState({ lat: 0, long: 0 });
     const [loading, setLoading] = useState(false);
@@ -69,6 +75,8 @@ const LocationInput = () => {
         }
 
         setLatLong(coords);
+        props.setLat(coords.lat);
+        props.setLong(coords.long);
         setMarkerLocation(coords);
         setMapCenter(coords);
     }
@@ -84,6 +92,7 @@ const LocationInput = () => {
         if (e.target.value) {
             const newRadius = parseInt(e.target.value);
             setRadius(newRadius);
+            props.setRadius(newRadius)
             if (markerLocation && markerLocation.lat && markerLocation.long && mapRef && mapRef.map) {
                 if (!circle) {
                     setCircle(new window.google.maps.Circle({
