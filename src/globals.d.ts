@@ -9,7 +9,7 @@ declare interface dateRange {
     endDate: number
 }
 
-declare interface event {
+declare interface activity {
     location: location,
     dateRange: dateRange
 }
