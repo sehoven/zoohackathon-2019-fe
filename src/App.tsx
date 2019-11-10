@@ -8,6 +8,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import SearchPage from './pages/SearchPage';
 
 const exampleActivity: activity = {
   location: {
@@ -29,6 +30,7 @@ function App() {
         <Switch>
           <Route path='/confirmation'><Confirmation activity={exampleActivity} /></Route>
           <Route path='/celebration'><Celebration activity={exampleActivity} /></Route>
+          <Route path='/search'><SearchPage/></Route>
           <Route path='/'><Landing /></Route>
         </Switch>
       </AppDiv>

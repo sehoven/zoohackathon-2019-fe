@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { LandingDiv, Activity, Activities } from './Landing.styles';
 import { Title, BottomBtn, Message } from '../common.styles';
 import { Typography, Button } from '@material-ui/core';
@@ -6,7 +7,7 @@ import ActivityCard from '../../components/ActivityCard/ActivityCard';
 
 interface LandingProps { }
 
-const Landing = (props: LandingProps) => {
+const Landing = (props: LandingProps & RouteComponentProps) => {
   const [activities, setActivities] = useState(Array<activity>());
 
   useEffect(() => {
@@ -70,7 +71,7 @@ const Landing = (props: LandingProps) => {
             color="primary"
             variant="contained"
             size="large"
-            onClick={() => { }}
+            onClick={() => {props.history.push('/search')}}
           >
             Create Activity
          </Button>
@@ -79,4 +80,4 @@ const Landing = (props: LandingProps) => {
   );
 };
 
-export default Landing;
+export default withRouter(Landing);
