@@ -2,9 +2,9 @@ import React from 'react';
 
 // import Confirmation from './pages/Confirmation/Confirmation';
 // import Celebration from './pages/Celebration/Celebration';
-// import Landing from './pages/Landing/Landing';
+import Landing from './pages/Landing/Landing';
 import { AppDiv, Logo } from './App.styles';
-import SearchPage from './pages/SearchPage';
+// import SearchPage from './pages/SearchPage';
 
 // const exampleActivity: activity = {
 //   location: {
@@ -23,8 +23,8 @@ function App() {
     <div>
       <Logo>NGO Underground</Logo>
       <AppDiv>
-        {/* <Landing /> */}
-        <SearchPage />
+        <Landing />
+        {/* <SearchPage /> */}
         {/* <Confirmation activity={exampleActivity} /> */}
       </AppDiv>
     </div>
