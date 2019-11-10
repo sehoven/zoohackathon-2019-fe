@@ -3,8 +3,13 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import DateRangeInput from '../components/DateRangeInput';
 import LocationInput from '../components/LocationInput';
+import TopicInput from '../components/TopicInput';
 import { BottomBtn } from './common.styles';
 import { Button } from '@material-ui/core';
+
+const SearchPageContainer = styled.div`
+    margin-bottom: 50px;
+`;
 
 const SearchPage = (props: RouteComponentProps) => {
   const [long, setLong] = useState(0);
@@ -15,7 +20,7 @@ const SearchPage = (props: RouteComponentProps) => {
   const [end, setEnd] = useState(new Date().getTime()/1000);
 
   return (
-    <>
+    <SearchPageContainer>
       <LocationInput 
         setLong={setLong}
         setLat={setLat}
@@ -25,6 +30,7 @@ const SearchPage = (props: RouteComponentProps) => {
         setStart={setStart}
         setEnd={setEnd}
       />
+      <TopicInput />
       <BottomBtn>
         <Button
           fullWidth
@@ -38,7 +44,7 @@ const SearchPage = (props: RouteComponentProps) => {
           Continue
         </Button>
       </BottomBtn>
-    </>
+    </SearchPageContainer>
   )
 }
 

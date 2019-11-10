@@ -1,6 +1,32 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# San Diego Zoo Hackathon 2019 - Front-end
+
+Global Problem Statement #9
+
+---
+
+# Wildflag
+
+## Problem Statement
+
+Individual NGOs conduct missions independently and discreetly. Discretion is especially important in initiatives that seek to thwart wildlife trafficking and poaching. From covert operations to research, missions can overlap, resulting in mission compromises and conflicts. There’s no standardized, secure method for flagging investigations and the only place for organizations to find each other is through word of mouth and on the ground.
+
+## Motivation
+
+We were inspired by the efforts made by organizations that seek to end wildlife trafficking and poaching, who may wish to avoid conflicts or forge new collaborations in other groups working in the same area. We built a mobile-first web app that can be used on any device to allow organizations to learn when potentially conflicting initiatives could be taking place and contact those interested parties.
+
+## Tech Stack
+
+* [Typescript](https://www.typescriptlang.org/)
+* [React](https://reactjs.org/)
+* [Styled Components](https://www.styled-components.com/)
+* [Material UI](https://material-ui.com)
+* [Google Maps Platform](https://developers.google.com/maps/documentation)
 
 ## Available Scripts
+
+To begin,
+
+### `yarn install`
 
 In the project directory, you can run:
 
@@ -36,33 +62,3 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

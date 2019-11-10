@@ -4,15 +4,16 @@ import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng,
 } from 'react-places-autocomplete';
-import { InputAdornment, IconButton, CircularProgress, FormControl, FormHelperText, InputLabel, Input, ListItem, List, ListItemText, Typography } from '@material-ui/core';
+import { Typography, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, InputAdornment, IconButton, CircularProgress, FormControl, FormHelperText, InputLabel, Input, ListItem, List, ListItemText } from '@material-ui/core';
 import MyLocationIcon from '@material-ui/icons/MyLocation';
-import RadiusInput from './RadiusInput';
 import { getAddressFromGeocode, getCurrentPosition } from '../utils/locationUtils';
 import GoogleMap from 'google-map-react';
 import Marker from '../components/Marker';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const AutocompleteSection = styled.div`
     display: flex;
+    width: 100%;
 `;
 
 const MapContainer = styled.div`
@@ -43,19 +44,23 @@ const LocationInput = (props: LocationInputProps) => {
     const [radius, setRadius] = useState<string|number>('');
     const [mapRef, setMapRef] = useState();
     const [circle, setCircle] = useState();
+    const [expanded, setExpanded] = useState(false);
+    const [mapLoaded, setMapLoaded] = useState(false);
 
     useEffect(() => {
         getCurrentPosition()
             .then(coordinates => setMapCenter(coordinates))
     }, []);
 
-
-    const handleRadiusChange = (e: any) => {
-        if (e.target.value) {
-            const newRadius = parseInt(e.target.value);
-            setRadius(newRadius);
-            props.setRadius(newRadius);
-            if (!circle) {
+    const syncLocation = (coords: coordinates) => {
+        const convertedCoords = {
+            lat: coords.lat,
+            lng: coords.long
+        }
+        if (mapRef && mapRef.map) {
+            if (circle) {
+                circle.setCenter(convertedCoords);
+            } else {
                 setCircle(new window.google.maps.Circle({
                     strokeColor: '#FF0000',
                     strokeOpacity: 0.8,
@@ -63,19 +68,53 @@ const LocationInput = (props: LocationInputProps) => {
                     fillColor: '#FF0000',
                     fillOpacity: 0.3,
                     map: mapRef.map,
-                    center: {
+                    center: convertedCoords,
+                    radius: +radius * 1000,
+                }));
+            }
+        }
+
+        setLatLong(coords);
+        props.setLat(coords.lat);
+        props.setLong(coords.long);
+        setMarkerLocation(coords);
+        setMapCenter(coords);
+    }
+    
+    const handleExpandChange = (event: object, expanded: boolean) => {
+        setExpanded(expanded);
+        if (!mapLoaded) {
+            setMapLoaded(true);
+        }
+    }
+
+    const handleRadiusChange = (e: any) => {
+        if (e.target.value) {
+            const newRadius = parseInt(e.target.value);
+            setRadius(newRadius);
+            props.setRadius(newRadius)
+            if (markerLocation && markerLocation.lat && markerLocation.long && mapRef && mapRef.map) {
+                if (!circle) {
+                    setCircle(new window.google.maps.Circle({
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: '#FF0000',
+                        fillOpacity: 0.3,
+                        map: mapRef.map,
+                        center: {
+                            lat: markerLocation.lat,
+                            lng: markerLocation.long
+                        },
+                        radius: newRadius * 1000,
+                    }));
+                } else {
+                    circle.setRadius(newRadius * 1000);
+                    circle.setCenter({
                         lat: markerLocation.lat,
                         lng: markerLocation.long
-                    },
-                    radius: newRadius * 1000,
-                }));
-            } else {
-                console.log('editing circle...');
-                circle.setRadius(newRadius * 1000);
-                circle.setCenter({
-                    lat: markerLocation.lat,
-                    lng: markerLocation.long
-                });
+                    });
+                }
             }
         } else {
             setRadius('');
@@ -87,22 +126,12 @@ const LocationInput = (props: LocationInputProps) => {
     };
     
     const handleSelect = (address: string) => {
+        console.log('handle select');
         setLocation(address);
         geocodeByAddress(address)
             .then((results: any) => getLatLng(results[0]))
-            .then((coords: any) => {
-
-                setLatLong({
-                    lat: coords.lat,
-                    long: coords.lng
-                });
-                props.setLat(coords.lat);
-                props.setLong(coords.lng);
-                setMarkerLocation({
-                    lat: coords.lat,
-                    long: coords.lng
-                });
-                setMapCenter({
+            .then((coords) => {
+                syncLocation({
                     lat: coords.lat,
                     long: coords.lng
                 });
@@ -116,11 +145,7 @@ const LocationInput = (props: LocationInputProps) => {
         setLoading(true);
         getCurrentPosition()
             .then(coordinates => {
-                setLatLong(coordinates)
-                props.setLat(coordinates.lat);
-                props.setLong(coordinates.long);
-                setMarkerLocation(coordinates)
-                setMapCenter(coordinates)
+                syncLocation(coordinates);
                 return getAddressFromGeocode(coordinates)
             })
             .then(address => setLocation(address))
@@ -132,12 +157,9 @@ const LocationInput = (props: LocationInputProps) => {
             lat,
             long: lng
         }
-        setMarkerLocation(coords);
-        setLatLong(coords);
-        props.setLat(coords.lat);
-        props.setLong(coords.long);
+        syncLocation(coords);
         getAddressFromGeocode(coords)
-            .then(address => setLocation(address))
+            .then(address => setLocation(address));
     }
      
     return (
@@ -155,9 +177,11 @@ const LocationInput = (props: LocationInputProps) => {
                             <Input required id="location-input" aria-describedby="location-helper-text" onChange={handleChange} value={location} {...getInputProps()} />
                             <FormHelperText id="location-helper-text">Search for a point of interest or choose your current location.</FormHelperText>
                         </FormControl>
-                        <IconButton onClick={getCurrentLocation}>
-                            <MyLocationIcon />
-                        </IconButton>
+                        {loading ? <CircularProgress /> : 
+                            <IconButton onClick={getCurrentLocation}>
+                                <MyLocationIcon />
+                            </IconButton>
+                        }
                     </AutocompleteSection>
                     <List>
                         {suggestions.map((suggestion, index) => {
@@ -172,31 +196,53 @@ const LocationInput = (props: LocationInputProps) => {
                 )}
             </PlacesAutocomplete>
 
-            <MapContainer>
-                <GoogleMap
-                    bootstrapURLKeys={{ key: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&libraries=places` }}
-                    center={{ lat: mapCenter.lat, lng: mapCenter.long }}
-                    zoom={10}
-                    onClick={onMapClick}
-                    onGoogleApiLoaded={({map, maps}) => setMapRef({ map, maps })}
+            <ExpansionPanel expanded={expanded} onChange={handleExpandChange}>
+                <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
                     >
-                        {
-                            markerLocation && markerLocation.lat && markerLocation.long && 
-                            <Marker
-                                lat={markerLocation.lat}
-                                lng={markerLocation.long}
-                                text="My Marker"
-                            />
-                        }
-                        
-                    </GoogleMap>
-            </MapContainer>
-        
-            {loading && <CircularProgress />}
-            {!!latLong.lat && <Typography variant="subtitle2">Latitude: {latLong.lat}</Typography>}
-            {!!latLong.long && <Typography variant="subtitle2">Longitude: {latLong.long}</Typography>}
+                    <Typography>Show Map</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                    {mapLoaded && <MapContainer>
+                        <GoogleMap
+                            bootstrapURLKeys={{ key: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&libraries=places`, v: '3.31' }}
+                            center={{ lat: mapCenter.lat, lng: mapCenter.long }}
+                            zoom={9}
+                            onClick={onMapClick}
+                            onGoogleApiLoaded={({map, maps}) => {
+                                setMapRef({ map, maps });
+                                if (radius && markerLocation && markerLocation.lat && markerLocation.long ) {
+                                    setCircle(new window.google.maps.Circle({
+                                        strokeColor: '#FF0000',
+                                        strokeOpacity: 0.8,
+                                        strokeWeight: 2,
+                                        fillColor: '#FF0000',
+                                        fillOpacity: 0.3,
+                                        map,
+                                        center: { lat: mapCenter.lat, lng: mapCenter.long },
+                                        radius: +radius * 1000,
+                                    }));
+                                }
+                            }}
+                            options={{zoomControl: false}}
+                            >
+                                {
+                                    markerLocation && markerLocation.lat && markerLocation.long && 
+                                    <Marker
+                                        lat={markerLocation.lat}
+                                        lng={markerLocation.long}
+                                        text="My Marker"
+                                    />
+                                }
+                                
+                            </GoogleMap>
+                        </MapContainer> }
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
 
-            <FormControl>
+            <FormControl fullWidth>
                 <InputLabel htmlFor="radius-input">Radius</InputLabel>
                 <Input endAdornment={<InputAdornment position="end">km</InputAdornment>} required id="radius-input" type="number" aria-describedby="radius-helper-text" onChange={handleRadiusChange} value={radius} />
                 <FormHelperText id="radius-helper-text">Specify the search radius around your location.</FormHelperText>

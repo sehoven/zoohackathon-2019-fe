@@ -43,6 +43,7 @@ const DateRangeInput = (props: DateRangeInputProps) => {
                 KeyboardButtonProps={{
                     'aria-label': 'change date',
                 }}
+                fullWidth
             />
             <KeyboardDatePicker
                 disableToolbar
@@ -58,6 +59,7 @@ const DateRangeInput = (props: DateRangeInputProps) => {
                 KeyboardButtonProps={{
                     'aria-label': 'change date',
                 }}
+                fullWidth
             />
         </MuiPickersUtilsProvider>
     )
