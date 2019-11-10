@@ -2,10 +2,6 @@ import styled from 'styled-components';
 
 export const CelebrationDiv = styled.div``;
 
-export const Message = styled.div`
-   margin-bottom: 20px;
-`;
-
 export const DialogContent = styled.div`
    padding: 25px;
 `;
