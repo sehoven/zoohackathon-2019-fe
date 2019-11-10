@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Typography, Button, Dialog, DialogActions } from '@material-ui/core';
-import { CelebrationDiv, Message, DialogContent, HomeBtn } from './Celebration.styles';
-import { Title, BottomBtn } from '../common.styles';
+import { CelebrationDiv, DialogContent, HomeBtn } from './Celebration.styles';
+import { Title, BottomBtn, Message } from '../common.styles';
 
 export interface CelebrationProps {
-   event: event
+   activity: activity
 };
 
 const Celebration = (props: CelebrationProps) => {
@@ -14,10 +14,10 @@ const Celebration = (props: CelebrationProps) => {
    return (
       <CelebrationDiv>
          <Title>
-            <Typography variant="h4">Your event has been successfully registered!</Typography>
+            <Typography variant="h4">Your activity has been successfully registered!</Typography>
          </Title>
          <Message>
-            <Typography variant="subtitle1">Would you like to be alerted when a new event is submitted that overlaps with your event?</Typography>
+            <Typography variant="subtitle1">Would you like to be alerted when a new activity is submitted that overlaps with your activity?</Typography>
          </Message>
          <BottomBtn>
             <Button
@@ -26,7 +26,7 @@ const Celebration = (props: CelebrationProps) => {
                variant="contained"
                size="large"
                onClick={() => {
-                  setDialogMessage("Great! You will receive alerts to your phone when an overlapping event is registered.");
+                  setDialogMessage("Great! You will receive alerts to your phone when an overlapping activity is registered.");
                   setDialogOpen(true)
                }}
             >

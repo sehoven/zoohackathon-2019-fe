@@ -17,13 +17,9 @@ export const LabelValue = styled.div`
    }
 `;
 
-export const Event = styled.div`
+export const Activity = styled.div`
    max-width: 500px;
    min-width: 310px;
-   margin-bottom: 20px;
-`;
-
-export const Message = styled.div`
    margin-bottom: 20px;
 `;
 
