@@ -3,6 +3,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import DateRangeInput from '../components/DateRangeInput';
 import LocationInput from '../components/LocationInput';
+import TopicInput from '../components/TopicInput';
 import { BottomBtn } from './common.styles';
 import { Button } from '@material-ui/core';
 
@@ -15,6 +16,7 @@ const SearchPage = (props: RouteComponentProps) => {
     <SearchPageContainer>
       <LocationInput />
       <DateRangeInput />
+      <TopicInput />
       <BottomBtn>
         <Button
           fullWidth

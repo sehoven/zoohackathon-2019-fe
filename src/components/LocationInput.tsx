@@ -204,7 +204,7 @@ const LocationInput = () => {
                             onClick={onMapClick}
                             onGoogleApiLoaded={({map, maps}) => {
                                 setMapRef({ map, maps });
-                                if (radius && markerLocation && markerLocation.lat && markerLocation.long) {
+                                if (radius && markerLocation && markerLocation.lat && markerLocation.long ) {
                                     setCircle(new window.google.maps.Circle({
                                         strokeColor: '#FF0000',
                                         strokeOpacity: 0.8,
