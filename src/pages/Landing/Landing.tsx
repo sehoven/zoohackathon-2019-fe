@@ -47,7 +47,7 @@ const Landing = (props: LandingProps & RouteComponentProps) => {
         </>
       : <Message><Typography variant="body1">You currently do not have any scheduled operations.</Typography></Message>
       }
-      <BottomBtn width={180}>
+      <BottomBtn width={200}>
           <Button
             fullWidth
             color="primary"
