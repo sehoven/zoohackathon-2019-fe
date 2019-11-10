@@ -41,8 +41,8 @@ const Confirmation = (props: ConfirmationProps & RouteComponentProps) => {
       getEvents(activity).then(res => {
          const gatheredContacts = res.data.map((obj: any) => {
             return {
-               activityId: obj._id,
-               email: `${obj._id}@ngounderground.com`
+               activityId: obj._id.slice(obj._id.length - 6, obj._id.length),
+               email: `${obj._id.slice(obj._id.length - 6, obj._id.length)}@ngo.hub`
             };
          })
          setContacts(gatheredContacts);

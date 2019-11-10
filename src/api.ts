@@ -5,7 +5,7 @@ const BASE_URL = 'http://localhost:3001';
 const getConfig = () => {
    return {
       headers: {
-         Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGM3YmIxZmM2YTFhMDA0ZDA1NmRmZTYiLCJpYXQiOjE1NzMzNzA2NTV9.tSLYNJTnjF4Pdw4m7_IRfUHhoxjPEYCKMqm_VYTOCYI'
+         Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGM4MzExNjY5OTg4ZTBjMzVmOGNkYjIiLCJpYXQiOjE1NzM0MDA4NTUsImV4cCI6MTU3MzU3MzY1NX0._cuUY-JEG4nf5WbnOv4BO_QoIkK-mj-sboa6kb4SJbo'
        }
    }
 }
@@ -23,7 +23,7 @@ export const getEvents = async (activity: activity) => {
 
 export const getMyEvents = async () => {
    const data = {
-      createdBy: "5dc7bb1fc6a1a004d056dfe6"
+      createdBy: "5dc8311669988e0c35f8cdb2"
    };
    return await axios.get(`${BASE_URL}/myEvents`, { params: data, ...getConfig()});
 }

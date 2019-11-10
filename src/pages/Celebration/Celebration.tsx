@@ -37,7 +37,7 @@ const Celebration = (props: CelebrationProps & RouteComponentProps) => {
             <Typography variant="subtitle1">Receive alerts when a new activity is registered that overlaps with your activity?</Typography>
          </CelebrationMessage>
          
-         <BottomBtn>
+         <BottomBtn width={160}>
             <Button
                fullWidth
                color="primary"
@@ -45,7 +45,7 @@ const Celebration = (props: CelebrationProps & RouteComponentProps) => {
                size="large"
                onClick={() => {props.history.push('/')}}
             >
-               Back to Home
+               Take me home
             </Button>
          </BottomBtn>
          <Dialog
