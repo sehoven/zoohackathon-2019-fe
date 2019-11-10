@@ -3,20 +3,30 @@ import React from 'react';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
+export interface DateRangeInputProps {
+    setStart: any;
+    setEnd: any;
+};
+
 // TODO: type definitions
-const DateRangeInput = () => {
+const DateRangeInput = (props: DateRangeInputProps) => {
     const [selectedStartDate, setSelectedStartDate] = React.useState<Date | null>(new Date());
     const [selectedEndDate, setSelectedEndDate] = React.useState<Date | null>(new Date());
     
     const handleStartDateChange = (date: Date | null) => {
         setSelectedStartDate(date);
+        // @ts-ignore
+        props.setStart(date.getTime()/1000);
         if ((date != null) && ((selectedEndDate == null) || (selectedEndDate <= date))) {
             setSelectedEndDate(date);
+            props.setEnd(date.getTime()/1000);
         }
     };
 
     const handleEndDateChange = (date: Date | null) => {
         setSelectedEndDate(date);
+        // @ts-ignore
+        props.setEnd(date.getTime()/1000);
     };
 
     return (

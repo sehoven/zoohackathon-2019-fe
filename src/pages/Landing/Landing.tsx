@@ -4,6 +4,7 @@ import { LandingDiv, Activity, Activities } from './Landing.styles';
 import { Title, BottomBtn, Message } from '../common.styles';
 import { Typography, Button } from '@material-ui/core';
 import ActivityCard from '../../components/ActivityCard/ActivityCard';
+import { getMyEvents } from '../../api';
 
 interface LandingProps { }
 
@@ -11,42 +12,23 @@ const Landing = (props: LandingProps & RouteComponentProps) => {
   const [activities, setActivities] = useState(Array<activity>());
 
   useEffect(() => {
-    // Do api call
-    setActivities([
-      {
-        location: {
-          long: -16.400251,
-          lat: 19.942287,
-          radius: 1000
-        },
-        dateRange: {
-          startDate: 1572643422,
-          endDate: 1574285022
+    getMyEvents().then((res) => {
+      console.log(res.data);
+      const gatheredActivities = res.data.map((obj: any) => {
+        return {
+          location: {
+            long: obj.loc.coordinates[0],
+            lat: obj.loc.coordinates[1],
+            radius: obj.radius
+          },
+          dateRange: {
+            startDate: new Date(obj.start).getTime()/1000,
+            endDate: new Date(obj.end).getTime()/1000
+          }
         }
-      },
-      {
-        location: {
-          long: -16.400251,
-          lat: 19.942287,
-          radius: 1000
-        },
-        dateRange: {
-          startDate: 1572643422,
-          endDate: 1574285022
-        }
-      },
-      {
-        location: {
-          long: -16.400251,
-          lat: 19.942287,
-          radius: 1000
-        },
-        dateRange: {
-          startDate: 1572643422,
-          endDate: 1574285022
-        }
-      }
-    ]);
+      });
+      setActivities(gatheredActivities);
+    });
   }, []);
 
   return (

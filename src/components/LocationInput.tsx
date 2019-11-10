@@ -28,7 +28,13 @@ declare interface mapClick {
     event: any
 }
 
-const LocationInput = () => {
+export interface LocationInputProps {
+    setLat: any;
+    setLong: any;
+    setRadius: any;
+}
+
+const LocationInput = (props: LocationInputProps) => {
     const [location, setLocation] = useState('');
     const [latLong, setLatLong] = useState({ lat: 0, long: 0 });
     const [loading, setLoading] = useState(false);
@@ -48,6 +54,7 @@ const LocationInput = () => {
         if (e.target.value) {
             const newRadius = parseInt(e.target.value);
             setRadius(newRadius);
+            props.setRadius(newRadius);
             if (!circle) {
                 setCircle(new window.google.maps.Circle({
                     strokeColor: '#FF0000',
@@ -89,6 +96,8 @@ const LocationInput = () => {
                     lat: coords.lat,
                     long: coords.lng
                 });
+                props.setLat(coords.lat);
+                props.setLong(coords.lng);
                 setMarkerLocation({
                     lat: coords.lat,
                     long: coords.lng
@@ -108,6 +117,8 @@ const LocationInput = () => {
         getCurrentPosition()
             .then(coordinates => {
                 setLatLong(coordinates)
+                props.setLat(coordinates.lat);
+                props.setLong(coordinates.long);
                 setMarkerLocation(coordinates)
                 setMapCenter(coordinates)
                 return getAddressFromGeocode(coordinates)
@@ -123,6 +134,8 @@ const LocationInput = () => {
         }
         setMarkerLocation(coords);
         setLatLong(coords);
+        props.setLat(coords.lat);
+        props.setLong(coords.long);
         getAddressFromGeocode(coords)
             .then(address => setLocation(address))
     }
