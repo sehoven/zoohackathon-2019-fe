@@ -3,6 +3,10 @@ import Confirmation from './pages/Confirmation/Confirmation';
 import Celebration from './pages/Celebration/Celebration';
 import Landing from './pages/Landing/Landing';
 import { AppDiv, Logo } from './App.styles';
+import { createMuiTheme} from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/styles';
+import { blue } from '@material-ui/core/colors';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,19 +26,27 @@ const exampleActivity: activity = {
   }
 };
 
+const theme = createMuiTheme({
+  palette: {
+    primary: blue
+  },
+});
+
 function App() {
   return (
-    <Router>
-      <Logo onClick={() => {window.location.href = '/'}}>NGO Hub</Logo>
-      <AppDiv>
-        <Switch>
-          <Route path='/confirmation/:lat/:long/:radius/:start/:end'><Confirmation /></Route>
-          <Route path='/celebration'><Celebration activity={exampleActivity} /></Route>
-          <Route path='/search'><SearchPage/></Route>
-          <Route path='/'><Landing /></Route>
-        </Switch>
-      </AppDiv>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Logo onClick={() => {window.location.href = '/'}}>NGO Hub</Logo>
+        <AppDiv>
+          <Switch>
+            <Route path='/confirmation/:lat/:long/:radius/:start/:end'><Confirmation /></Route>
+            <Route path='/celebration'><Celebration activity={exampleActivity} /></Route>
+            <Route path='/search'><SearchPage/></Route>
+            <Route path='/'><Landing /></Route>
+          </Switch>
+        </AppDiv>
+      </Router>
+    </ThemeProvider>
   );
 }
 

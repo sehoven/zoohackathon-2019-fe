@@ -3,11 +3,10 @@ import styled from 'styled-components';
 import { FormControl, InputLabel, Select, Input, MenuItem, Chip } from '@material-ui/core';
 
 const topics = [
-    'Topic 1',
-    'Topic 2',
-    'Topic 3',
-    'Topic 4',
-    'Topic 5'
+    'Ecotourism',
+    'Ecology research',
+    'Wildlife research',
+    'Counter-trafficking'
 ];
 
 const TopicInputDiv = styled.div`
