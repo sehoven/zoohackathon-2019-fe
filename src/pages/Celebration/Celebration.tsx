@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Typography, Button, Dialog, DialogActions } from '@material-ui/core';
 import { CelebrationDiv, DialogContent, HomeBtn } from './Celebration.styles';
 import { Title, BottomBtn, Message } from '../common.styles';
@@ -7,7 +8,7 @@ export interface CelebrationProps {
    activity: activity
 };
 
-const Celebration = (props: CelebrationProps) => {
+const Celebration = (props: CelebrationProps & RouteComponentProps) => {
    const [dialogOpen, setDialogOpen] = useState(false);
    const [dialogMessage, setDialogMessage] = useState("");
 
@@ -39,8 +40,7 @@ const Celebration = (props: CelebrationProps) => {
                color="default"
                variant="contained"
                size="large"
-               onClick={() => {
-               }}
+               onClick={() => {props.history.push('/')}}
             >
                Home
             </Button>
@@ -51,7 +51,7 @@ const Celebration = (props: CelebrationProps) => {
             <DialogContent>
                <Typography variant="body1">{dialogMessage}</Typography>
                <DialogActions>
-                  <Button onClick={() => {}} color="primary" autoFocus>
+                  <Button color="primary" autoFocus onClick={() => {props.history.push('/')}}>
                      Got it
                   </Button>
                </DialogActions>
@@ -61,4 +61,4 @@ const Celebration = (props: CelebrationProps) => {
    );
 };
 
-export default Celebration;
+export default withRouter(Celebration);

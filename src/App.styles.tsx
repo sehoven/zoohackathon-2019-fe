@@ -13,4 +13,5 @@ export const Logo = styled.div`
    font-weight: bold;
    margin-bottom: 5px;
    text-align: center;
+   cursor: pointer;
 `;

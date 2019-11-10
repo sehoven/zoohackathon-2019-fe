@@ -12,10 +12,11 @@ import Marker from '../components/Marker';
 
 const AutocompleteSection = styled.div`
     display: flex;
+    width: 100%;
 `;
 
 const MapContainer = styled.div`
-    width: calc(100vw - 20px);
+    width: 100%;
     height: 300px;
 `;
 
@@ -195,7 +196,7 @@ const LocationInput = () => {
                     </GoogleMap>
             </MapContainer>
 
-            <FormControl>
+            <FormControl fullWidth>
                 <InputLabel htmlFor="radius-input">Radius</InputLabel>
                 <Input endAdornment={<InputAdornment position="end">km</InputAdornment>} required id="radius-input" type="number" aria-describedby="radius-helper-text" onChange={handleRadiusChange} value={radius} />
                 <FormHelperText id="radius-helper-text">Specify the search radius around your location.</FormHelperText>
