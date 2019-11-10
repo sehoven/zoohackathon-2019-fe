@@ -32,7 +32,7 @@ $ cd zoohackathon-2019-fe
 $ yarn install
 ```
 
-### Running the project
+## Running the project
 
 1. Create a [Google Maps API Key](https://developers.google.com/maps/documentation/javascript/get-api-key)
 2. Paste the following text in the `.env` file, replacing `<YOUR_API_KEY>` with the API key you just created
