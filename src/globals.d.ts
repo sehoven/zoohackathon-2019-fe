@@ -13,3 +13,8 @@ declare interface event {
     location: location,
     dateRange: dateRange
 }
+
+declare interface coordinates {
+    lat: number,
+    long: number
+}
