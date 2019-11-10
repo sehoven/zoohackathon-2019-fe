@@ -13,6 +13,7 @@ const Marker = styled.div<MarkerProps>`
     border: 1px solid black;
     border-radius: 30px;
     margin: -5px;
+    position: absolute;
 `;
 
 export default Marker;
