@@ -8,4 +8,8 @@ export const Activity = styled.div`
 
 export const Activities = styled.div`
    margin-bottom: 50px;
+
+   @media (min-width: 520px) {
+      margin-bottom: 10px;
+   }
 `;
