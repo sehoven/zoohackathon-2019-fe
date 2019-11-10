@@ -18,3 +18,8 @@ declare interface coordinates {
     lat: number,
     long: number
 }
+
+declare interface googleMapsCoordinates {
+    lat: number,
+    lng: number
+}
