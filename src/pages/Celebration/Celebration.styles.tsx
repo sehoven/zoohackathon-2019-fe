@@ -1,6 +1,13 @@
 import styled from 'styled-components';
+import {  Message } from '../common.styles';
 
 export const CelebrationDiv = styled.div``;
+
+export const CelebrationMessage = styled(Message)`
+   display: flex;
+   align-items: center;
+   justify-content: center;
+`;
 
 export const DialogContent = styled.div`
    padding: 25px;
